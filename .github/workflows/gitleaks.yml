@@ -1,0 +1,20 @@
+name: BBM Gitleaks Code Scanning
+run-name: BBM Gitleaks Code Scanning
+on:
+  pull_request:
+    branches:
+        - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  Gitleaks-Code-Scanning:
+    name: Gitleaks Code Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Environment file
+        run: |
+           docker pull zricethezav/gitleaks:v8.15.0
+           docker run -v "$(pwd)":/path -v "gitleaks-results":/result zricethezav/gitleaks:v8.15.0 detect --source="/path" --report-path=/dev/stdout
