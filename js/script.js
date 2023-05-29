@@ -10,23 +10,23 @@ function whatsappFunc() {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
     var modalCloseButton = document.querySelector(".modal-footer button[data-bs-dismiss='modal']");
     var errorElement = document.getElementById("error");
 
-    modalCloseButton.addEventListener("click", function() {
+    modalCloseButton.addEventListener("click", function () {
         errorElement.textContent = ""; // Clear the error message when the modal is closed
     });
 
-    window.addEventListener("beforeunload", function() {
+    window.addEventListener("beforeunload", function () {
         errorElement.textContent = ""; // Clear the error message when the page is refreshed
     });
 });
 
 
-// Percentage Calculating Function
+// // Percentage Calculating Function
 function percentageFunc() {
-    const startDateStr = '2023-05-19';
+    const startDateStr = '2023-05-29';
     const numDays = 90;
     const timezoneName = 'Asia/Kolkata';
 
@@ -34,13 +34,25 @@ function percentageFunc() {
     const today = moment.tz(new Date(), timezoneName);
 
     const elapsedDays = Math.floor(today.diff(startDate, 'days'));
-    const percentage = (elapsedDays / numDays) * 100;
+    let percentage = (elapsedDays / numDays) * 100;
 
-    var out = `Wow...you have completed ${percentage.toFixed(2)}% of your challenge.`;
-    var cardText = document.getElementById("cardText");
+    percentage = Math.min(percentage, 100); // Limit percentage to 100
+
+    const out = `Wow...you have completed ${percentage.toFixed(2)}% of your challenge.`;
+    const cardText = document.getElementById("cardText");
     cardText.innerHTML = out;
+
+    const cardBar = document.getElementById("cardBar");
+    cardBar.style.width = `${percentage.toFixed(2)}%`;
+    cardBar.setAttribute("aria-valuenow", percentage.toFixed(2));
+
+    const cardBarText = document.getElementById("cardBarText");
+    cardBarText.innerHTML = `${percentage.toFixed(2)}%`;
 }
 
-window.addEventListener('DOMContentLoaded', percentageFunc);
+// Add event listener to trigger the percentageFunc when the DOM is ready
+window.addEventListener('DOMContentLoaded', function () {
+    percentageFunc();
+});
 
 
