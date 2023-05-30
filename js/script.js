@@ -38,7 +38,7 @@ function percentageFunc() {
   
     window.addEventListener("message", (event) => {
       // Verify the origin of the message
-      if (event.origin !== "http://localhost:5500") {
+      if (event.origin !== "https://bijinbennym23.github.io/profile/") {
         return; // Reject messages from unauthorized origins
       }
   
