@@ -66,12 +66,12 @@ function whatsappFunc() {
       errorElement.textContent = ""; // Clear the error message
   
       // Verify the origin of the window
-      if (window.origin !== "https://bijinbennym23.github.io/profile/") {
+      if (window.parent !== window) {
         console.error("Invalid origin. Message not sent.");
         return;
       }
   
-      window.open("https://api.whatsapp.com/send?phone=91" + num);
+      window.parent.postMessage({ number: num }, "http://localhost:5500/");
     }
   }
   
@@ -118,13 +118,14 @@ function whatsappFunc() {
   
     // Verify the origin when receiving messages
     window.addEventListener("message", function (event) {
-      if (event.origin !== "https://bijinbennym23.github.io/profile/") {
+      if (event.origin !== "http://localhost:5500/") {
         console.error("Invalid origin. Message rejected.");
         return;
       }
   
       // Handle the received message
-      // ...
+      const number = event.data.number;
+      console.log("Received number:", number);
     });
   });
   
