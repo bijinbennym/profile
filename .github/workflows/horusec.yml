@@ -3,7 +3,7 @@ run-name: BBM Horusec Security Check
 on:
   pull_request:
     branches:
-      - master
+      - main
     types: [opened, synchronize, reopened]
 
 jobs:
