@@ -38,7 +38,7 @@ function percentageFunc() {
   
     window.addEventListener("message", (event) => {
       // Verify the origin of the message
-      if (event.origin !== "https://bijinbennym23.github.io/profile/") {
+      if (event.origin !== window.location.origin) {
         return; // Reject messages from unauthorized origins
       }
   
@@ -65,7 +65,4 @@ function percentageFunc() {
       window.open("https://api.whatsapp.com/send?phone=91" + num);
     }
   }
-
-  
-
   
